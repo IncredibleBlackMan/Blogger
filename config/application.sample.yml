@@ -1,0 +1,5 @@
+POSTGRES_USER: 'some-user'
+POSTGRES_PASSWORD: 'random-string'
+POSTGRES_HOST: 'localhost'
+POSTGRES_DB: 'some-database-name'
+POSTGRES_TEST_DB: 'test-database-name'
