@@ -18,6 +18,9 @@ gem 'puma', '~> 3.11'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+# Use jwt for tokenisation of user data
+gem 'jwt'
+
 # Use Figaro for env variables
 gem 'figaro'
 
@@ -38,7 +41,19 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'annotate'
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'database_cleaner'
+  gem 'factory_bot_rails', '~> 5.0'
+  gem 'faker'
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'guard-rubocop'
+  gem 'pry'
+  gem 'rspec-rails', '~> 3.8'
+  gem 'rubocop', require: false
+  gem 'rubocop-performance'
+  gem 'shoulda-matchers', '~> 4.1'
 end
 
 group :development do
