@@ -19,7 +19,8 @@ before_script:
   - docker ps
 
 script:
-  - docker-compose exec web rails test
+  - docker-compose run web rails db:migrate RAILS_ENV=test
+  - docker-compose run web rails spec
 
 after_script:
   - docker-compose down
