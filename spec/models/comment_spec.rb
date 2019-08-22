@@ -25,5 +25,13 @@
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'Validations' do
+    before(:all) do
+      @comment = create(:comment)
+    end
+
+    it 'Comment model should have valid attributes' do
+      expect(@comment).to be_valid
+    end
+  end
 end
