@@ -8,4 +8,10 @@ Rails.application.routes.draw do
       post 'login'
     end
   end
+
+  resources :articles, only: %i[show index update destroy] do
+    collection do
+      post 'article'
+    end
+  end
 end
