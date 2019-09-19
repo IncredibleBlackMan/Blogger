@@ -9,9 +9,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :articles, only: %i[show index update destroy] do
-    collection do
-      post 'article'
-    end
+  resources :articles do
+    resources :comments
   end
 end
