@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  skip_before_action :authenticate_request!, only: %i[create login]
+
   def create
     user = User.new(user_params)
 

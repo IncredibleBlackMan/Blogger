@@ -1,19 +1,22 @@
 # frozen_string_literal: true
 
 class ArticlesController < ApplicationController
+  before_action :find_article, except: %i[create index]
+
   def index
     articles = Article.all
     render json: { articles: articles }, status: :ok
   end
 
   def show
-    binding.pry
-    article = Article.find(params[:id])
-    render json: { article: article }, status: :ok
+    comments = Comment.where(article_id: params[:id])
+    render json: {
+      article: @article.as_json.merge("comments": comments)
+    }, status: :ok
   end
 
   def create
-    article = Article.new!(article_params.merge(user_id: @current_user.id))
+    article = Article.new(article_params.merge(user_id: @current_user.id))
 
     if article.save
       render json: {
@@ -28,25 +31,36 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    article = Article.find(params[:id])
-
-    article&.update(article_params)
-    render json: { message: 'Article successfully updated' }, status: :ok
-  rescue StandardError => e
-    render json: {
-      message: 'An error occurred while updating article',
-      errors: e.message
-    }, status: :bad_request
+    if @article['user_id'] == @current_user.id
+      @article&.update(article_params)
+      render json: { message: 'Article successfully updated' }, status: :ok
+    else
+      render json: {
+        message: 'You have to be the owner to update this article'
+      }, status: :forbidden
+    end
   end
 
   def destroy
-    article = Article.find(params[:id])
-
-    article&.destroy
-    render json: { message: 'Article successfully deleted' }, status: :ok
+    if @article['user_id'] == @current_user.id
+      @article&.destroy
+      render json: { message: 'Article successfully deleted' }, status: :ok
+    else
+      render json: {
+        message: 'You have to be the owner to delete this article'
+      }, status: :forbidden
+    end
   end
 
   private
+
+  def find_article
+    @article = Article.find(params[:id])
+  rescue StandardError => e
+    render json: {
+      errors: e.message
+    }, status: :bad_request
+  end
 
   def article_params
     params.require(:article).permit(:title, :body)
