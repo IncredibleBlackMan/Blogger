@@ -27,6 +27,8 @@ gem 'figaro'
 # Use travis for continuous integration
 gem 'travis'
 
+gem 'rack-cors'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
@@ -50,7 +52,6 @@ group :development, :test do
   gem 'guard-rspec'
   gem 'guard-rubocop'
   gem 'pry'
-  gem 'rb-readline'
   gem 'rspec-rails', '~> 3.8'
   gem 'rubocop', require: false
   gem 'rubocop-performance'

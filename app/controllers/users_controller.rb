@@ -4,9 +4,12 @@ class UsersController < ApplicationController
   skip_before_action :authenticate_request!, only: %i[create login]
 
   def create
-    user = User.new(user_params)
+    user = User.new(user_params.except(:confirm_password))
 
-    if user.save
+    user_params = params[:user]
+    if user_params[:password] != user_params[:confirm_password]
+      render json: { errors: 'Passwords don\'t match' }, status: :bad_request
+    elsif user.save
       render json: { message: 'User created successfully' }, status: :created
     else
       render json: { errors: user.errors.full_messages }, status: :bad_request
@@ -27,6 +30,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :email, :password)
+    params.require(:user).permit(:username, :email, :password, :confirm_password)
   end
 end

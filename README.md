@@ -24,7 +24,7 @@ POSTGRES_PASSWORD: 'your-postgres-password'
 
 * Database creation and configuration
 
-- After creating your `config/application.yml`, you need to create these 2 databases `iSale-database` and `iSale-test-database`. To create them, run:
+- After creating your `config/application.yml`, you need to create these 2 databases `blogger-database` and `blogger-test-database`. To create them, run:
 
 ```
 rake db:create
