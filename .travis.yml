@@ -1,27 +1,22 @@
 language: ruby
 
-services:
-  - docker
+rvm:
+  - 2.5.3
 
-before_install:
-  - docker -v
-  - docker-compose -v
+addons:
+  postgresql: 9.6
 
-install:
-  - envsubst < ./config/application.sample.yml > ./config/application.yml
-  - docker-compose build
+before_install: gem install bundler
 
 before_script:
-  - docker-compose run --rm --no-deps web echo 'Gems now pre-installed.'
-  - # Use 'run ...` instead of 'exec ...` so that entrypoint's customized bundle install runs completely.
-  - docker-compose -f docker-compose.yml up -d
-  - # The detached `up` also runs entrypoint — but because it's detached,
-  - # bundle install doesn't finish before shell moves on to next commands.
-  - docker ps
-  - docker-compose run -e "RAILS_ENV=test" web rake db:migrate
+  - cp config/database.yml.travis config/database.yml
+  - psql -c 'create database travis_ci_test;' -U postgres
+
+dist: trusty
 
 script:
-  - docker-compose run web rspec spec
+  - bundle exec rails db:migrate RAILS_ENV=test
+  - bundle exec rspec
 
 deploy:
   provider: heroku
