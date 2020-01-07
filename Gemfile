@@ -29,6 +29,8 @@ gem 'travis'
 
 gem 'rack-cors'
 
+gem 'sprockets', '~>3.0'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

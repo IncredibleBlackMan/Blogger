@@ -4,14 +4,16 @@ class ArticlesController < ApplicationController
   before_action :find_article, except: %i[create index]
 
   def index
-    articles = Article.all
-    render json: { articles: articles }, status: :ok
+    article_list = Article.all.map do |article|
+      article_object(article)
+    end
+    render json: { articles: article_list }, status: :ok
   end
 
   def show
     comments = Comment.where(article_id: params[:id])
     render json: {
-      article: @article.as_json.merge("comments": comments)
+      article: article_object(@article).as_json.merge("comments": comments)
     }, status: :ok
   end
 
@@ -60,6 +62,17 @@ class ArticlesController < ApplicationController
     render json: {
       errors: e.message
     }, status: :bad_request
+  end
+
+  def article_object(article)
+    {
+      id: article.id,
+      title: article.title,
+      body: article.body,
+      author: User.find(article[:user_id]).username,
+      created_at: article.created_at,
+      updated_at: article.updated_at
+    }
   end
 
   def article_params
