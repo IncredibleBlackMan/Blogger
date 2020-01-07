@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,39 +12,48 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_18_220505) do
-
+ActiveRecord::Schema.define(version: 20_200_106_231_412) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "articles", force: :cascade do |t|
-    t.string "title"
-    t.text "body"
-    t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_articles_on_user_id"
+  create_table 'articles', force: :cascade do |t|
+    t.string 'title'
+    t.text 'body'
+    t.bigint 'user_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['user_id'], name: 'index_articles_on_user_id'
   end
 
-  create_table "comments", force: :cascade do |t|
-    t.text "body"
-    t.bigint "user_id"
-    t.bigint "article_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["article_id"], name: "index_comments_on_article_id"
-    t.index ["user_id"], name: "index_comments_on_user_id"
+  create_table 'comments', force: :cascade do |t|
+    t.text 'body'
+    t.bigint 'user_id'
+    t.bigint 'article_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['article_id'], name: 'index_comments_on_article_id'
+    t.index ['user_id'], name: 'index_comments_on_user_id'
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string "username"
-    t.string "email"
-    t.string "password_digest"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'profiles', force: :cascade do |t|
+    t.text 'bio'
+    t.string 'avatar'
+    t.bigint 'user_id'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['user_id'], name: 'index_profiles_on_user_id'
   end
 
-  add_foreign_key "articles", "users"
-  add_foreign_key "comments", "articles"
-  add_foreign_key "comments", "users"
+  create_table 'users', force: :cascade do |t|
+    t.string 'username'
+    t.string 'email'
+    t.string 'password_digest'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+  end
+
+  add_foreign_key 'articles', 'users'
+  add_foreign_key 'comments', 'articles'
+  add_foreign_key 'comments', 'users'
+  add_foreign_key 'profiles', 'users'
 end
