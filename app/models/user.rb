@@ -15,9 +15,11 @@
 class User < ApplicationRecord
   before_save :downcase_email
   has_secure_password
+  has_one :profile, dependent: :destroy
   has_many :articles, dependent: :destroy
   has_many :comments, through: :articles
 
+  validates_uniqueness_of :username
   validates_presence_of :email
   validates_uniqueness_of :email, case_sensitive: false
   validates_format_of :email, with: /@/
