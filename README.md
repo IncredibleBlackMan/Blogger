@@ -12,7 +12,7 @@ This web application is written with Ruby using the Ruby on Rails framework and 
 
 Please make sure you have Ruby(v 2.4.1) and PostgreSQL installed. Take the following steps to setup the application on your local machine:
 
-1. Clone this repository `git clone https://github.com/gloriaodipo/iSale_backend.git`
+1. Clone this repository `git clone https://github.com/IncredibleBlackMan/Blogger.git`
 2. Run `bundle install` to install all required gems
 3. Run `cp config/application.yml.sample config/application.yml` to create the `application.yml` file.
 
