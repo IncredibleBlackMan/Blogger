@@ -34,7 +34,7 @@ class UsersController < ApplicationController
     {
       user_id: user.id,
       bio: 'Set bio',
-      avatar: 'https://www.google.com/imgres?imgurl=https%3A%2F%2Fassets.materialup.com%2Fuploads%2Fe0b1e16e-e0b7-4328-a1bc-72e1b0b973f6%2Fpreview.png&imgrefurl=https%3A%2F%2Fwww.uplabs.com%2Fposts%2Favatar-2&docid=M8jBzQCDNmLF5M&tbnid=_S739bUwbv7QFM%3A&vet=10ahUKEwjmyLrVgfHmAhW18uAKHVNzDDwQMwjLASgmMCY..i&w=800&h=600&bih=969&biw=1920&q=avatar%20images&ved=0ahUKEwjmyLrVgfHmAhW18uAKHVNzDDwQMwjLASgmMCY&iact=mrc&uact=8'
+      avatar: 'https://source.unsplash.com/random/200x200'
     }
   end
 
