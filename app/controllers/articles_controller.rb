@@ -69,9 +69,9 @@ class ArticlesController < ApplicationController
       id: article.id,
       title: article.title,
       body: article.body,
-      author: User.find(article[:user_id]).username,
-      created_at: article.created_at,
-      updated_at: article.updated_at
+      username: User.find(article[:user_id]).username,
+      user_avatar: Profile.find_by(user_id: article[:user_id]).avatar,
+      created_at: article.created_at.strftime("%B %d, %Y")
     }
   end
 
